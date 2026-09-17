@@ -12,7 +12,7 @@ from app.api.routes.analysis import router as analysis_router
 
 # Load environment variables
 load_dotenv()
-
+FRONTEND_URL = os.getenv("FRONTEND_URL")
 
 app = FastAPI(
     title="Matchboard API",
@@ -27,6 +27,9 @@ app = FastAPI(
 # The browser preview proxy uses dynamic ports, so we use a regex to match any port
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=[
+        FRONTEND_URL,
+    ],
     allow_origin_regex=r"http://(localhost|127\.0\.0\.1):\d+",
     allow_credentials=True,
     allow_methods=["*"],
